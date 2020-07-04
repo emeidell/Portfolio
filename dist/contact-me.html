@@ -41,7 +41,7 @@
           <div
             class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 leading-normal w-full"
           >
-            <form name="contact" method="POST" data-netlify="true">
+            <form name="contact" method="POST" data-netlify="true" onsubmit="contactSubmit(event)">
               <fieldset class="h-24">
                 <label class="block text-sm text-gray-dark pb-2">Name <span class="text-red-500">*</span></label>
                 <input
@@ -61,7 +61,7 @@
                   type="text"
                   name="email"
                 />
-                <p id="name-error" class="hidden text-red-500 text-sm pb-2">Name is required to submit.</p>
+                <p id="email-error" class="hidden text-red-500 text-sm pb-2">Email is required to submit.</p>
               </fieldset>
 
               <fieldset>
@@ -71,7 +71,7 @@
                 ></textarea>
               </fieldset>
 
-              <button class="text-sm py-2 px-3 mt-4 bg-black text-white rounded" type="submit">
+              <button class="text-sm py-2 px-3 mt-4 bg-black text-white rounded" type="submit" onclick="contactSubmit(event)">
                 Submit
               </button>
             </form>
@@ -83,19 +83,28 @@
     <!-- /contact -->
     
     <script>
-      document.getElementsByName('contact').submit(contactSubmit());
+      function contactSubmit(e) {
+        e.preventDefault();
 
-      function contactSubmit() {
         var name = document.getElementById('name').value
         var email = document.getElementById('email').value
         var nameError = document.getElementById('name-error');
-        console.log("Hello world")
+        var emailError = document.getElementById('email-error');
 
         if (name === "") {
           console.log("Fields are required for submition")
           nameError.classList.remove('hidden')
+          return false;
         } else {
           nameError.classList.add('hidden')
+        }
+
+        if (email === "") {
+          console.log("Fields are required for submition")
+          emailError.classList.remove('hidden')
+          return false;
+        } else {
+          emailError.classList.add('hidden')
         }
       }
     </script>
